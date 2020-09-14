@@ -1,0 +1,232 @@
+#include <cs50.h>
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <time.h>
+
+
+//child algorithm
+
+int arith(void)
+{
+    srand(time(NULL));
+    int answer1;
+    int answer2;
+    int answer3;
+    int sign = rand()%2;
+    int first = rand() % 199 + 1 ;
+    int last = first;
+    int num= rand() % 199 +1;
+    int k = rand()%199+1;
+    int sum = first;
+    
+    //find the sign for mathematical problem (+ or -)
+    if (sign==1)
+    {
+        k = 0 - k;
+    }
+    
+    //calculate the last number and sum of the sequence
+    for (int i=1; i < num; i++)
+    {
+        last += k;
+        sum += last;
+    }
+
+//catergorize types of questions
+    int type = rand()%3;
+
+    if (type==0)
+
+              {
+                 //give the client the first, last and number of sequence, ask them about the sum and increment
+                 printf("First number:%d\n",first);
+                 printf("Last number:%d\n",last);
+                 printf("Numbers of sequence:%d\n",num);
+
+                 answer1=get_int("What is the sum of this sequence?");
+                 answer2=get_int("How much does the sequence increase by?");
+
+                 //check answer
+                 if (answer1==sum && answer2==k)
+                 {
+                    printf("You are correct!");
+                 }
+                 else return 1;
+               }
+            else if (type ==1)
+
+              {
+                  //give the client the sum, increment and number of sequence, ask them about the first and last element)
+                   printf("Sum of the sequence:%d\n",sum);
+                   printf("Incremental element:%d\n",k);
+                   printf("Numbers of sequence:%d\n",num);
+
+                   answer1=get_int("What is the first number of this sequence?");
+                   answer2=get_int("What is the last number of this sequence?");
+                   //check answer
+                   if (answer1==first && answer2==last)
+                   {
+                       printf("You are correct!");
+
+                   }
+                   else return 1;
+
+              }
+
+
+              else if (type ==2)
+
+              {
+                  //give the client the last, increment and sum of sequence, ask them about the first and number of sequence)
+                   printf("Last number:%d\n",last);
+                   printf("Incremental element:%d\n",k);
+                   printf("Sum of sequence:%d\n",sum);
+
+                   answer1=get_int("How many numbers are there in this sequence?");
+                   answer2=get_int("What is the first number of this sequence?");
+                   //check answer
+                   if (answer1==num && answer2==first)
+                   {
+                       printf("You are correct!");
+
+                   }
+                   else return 1;
+
+              }
+              return 0;
+}
+
+//child algorithm
+int geom(void)
+
+{
+    srand(time(NULL));
+
+    int sign = rand()%2;
+    int first = rand() % 199 + 1 ;
+    int num= rand()%13+1;
+    int k = rand()%13+1;
+    int last=first;
+    int answer1;
+    int answer2;
+    int answer3;
+    int sum = first;
+    if (sign==1)
+    {
+        k = 0 - k;
+    }
+        for (int i=1;i<num;i++)
+    {
+        last = last * k;
+        sum += last;
+    }
+
+    //catergorize types of questions
+    int type = rand()%3;
+
+    if (type==0)
+
+              {
+                 //give the client the first, last and number of sequence, ask them about the sum and increment
+                 printf("First number:%d\n",first);
+                 printf("Last number:%d\n",last);
+                 printf("Numbers of sequence:%d\n",num);
+                 ////for checks
+                    printf("sum:%d\n", sum);
+                   printf("k:%d\n",k);
+                 answer1=get_int("What is the sum of this sequence?");
+                 answer2=get_int("How much does the sequence increase by?");
+
+                 //check answer
+                 if (answer1==sum && answer2==k)
+                 {
+                    printf("You are correct!");
+                 }
+                 else return 1;
+               }
+            else if (type ==1)
+
+              {
+                  //give the client the sum, increment and number of sequence, ask them about the first and last element)
+                   printf("Sum of the sequence:%d\n",sum);
+                   printf("Incremental element:%d\n",k);
+                   printf("Numbers of sequence:%d\n",num);
+                   //for checks
+                   printf("first:%d\n", first);
+                   printf("last:%d\n",last);
+                   answer1=get_int("What is the first number of this sequence?");
+                   answer2=get_int("What is the last number of this sequence?");
+                   //check answer
+                   if (answer1==first && answer2==last)
+                   {
+                       printf("You are correct!");
+
+                   }
+                   else return 1;
+
+              }
+
+
+              else if (type==2)
+
+              {
+                  //give the client the last, increment and sum of sequence, ask them about the first and number of sequence)
+                   printf("Last number:%d\n",last);
+                   printf("Incremental element:%d\n",k);
+                   printf("Sum of sequence:%d\n",sum);
+                   //for checks
+                    printf("first:%d\n", first);
+                   printf("num:%d\n",num);
+                   answer1=get_int("How many numbers are there in this sequence?");
+                   answer2=get_int("What is the first number of this sequence?");
+                   //check answer
+                   if (answer1==num && answer2==first)
+                   {
+                       printf("You are correct!");
+
+                   }
+                   else return 1;
+
+              }
+              return 0;
+}
+//parent algorithm
+int main (void)
+{
+
+    //ask which type do the clients want to practice
+    string insert;
+    insert = get_string("Which problem do you want to practice? \n Arithmetric or Geometric?");
+
+    //convert the string to uppercase if the clients ever make typo mistake.
+    for (int i=0;i<strlen(insert);i++)
+    {
+       insert[i]= (tolower(insert[i]));
+
+    }
+
+    string a = "arithmetric";
+    string b = "geometric";
+    srand(time(NULL));
+
+    //modulus operator %
+    //remainder
+
+    //compare to check if the client wants to practice with arithmetric problems
+    if ((strcmp(a,insert)==0))
+    {
+        arith();
+    }
+
+
+     else if (strcmp(b,insert)==0)
+    {
+        geom();
+    }
+    else return 1;
+
+return 0;
+}
